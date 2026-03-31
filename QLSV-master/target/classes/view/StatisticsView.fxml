@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox spacing="20.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="controller.StatisticsController">
+    <padding>
+        <Insets top="20" right="20" bottom="20" left="20"/>
+    </padding>
+
+    <children>
+        <Label text="THỐNG KÊ TỔNG QUAN" textFill="#2c3e50">
+            <font>
+                <Font name="System Bold" size="22.0"/>
+            </font>
+        </Label>
+
+        <GridPane hgap="15.0" vgap="15.0">
+            <columnConstraints>
+                <ColumnConstraints percentWidth="50.0"/>
+                <ColumnConstraints percentWidth="50.0"/>
+            </columnConstraints>
+
+            <children>
+                <VBox spacing="8.0" style="-fx-background-color: #ecf0f1; -fx-background-radius: 10; -fx-padding: 16;">
+                    <Label text="Tổng số khoa" style="-fx-font-weight: bold;"/>
+                    <Label fx:id="lblDepartments" text="0" style="-fx-font-size: 24px; -fx-text-fill: #2980b9;"/>
+                </VBox>
+
+                <VBox GridPane.columnIndex="1" spacing="8.0" style="-fx-background-color: #ecf0f1; -fx-background-radius: 10; -fx-padding: 16;">
+                    <Label text="Tổng số lớp" style="-fx-font-weight: bold;"/>
+                    <Label fx:id="lblClasses" text="0" style="-fx-font-size: 24px; -fx-text-fill: #27ae60;"/>
+                </VBox>
+
+                <VBox GridPane.rowIndex="1" spacing="8.0" style="-fx-background-color: #ecf0f1; -fx-background-radius: 10; -fx-padding: 16;">
+                    <Label text="Tổng số sinh viên" style="-fx-font-weight: bold;"/>
+                    <Label fx:id="lblStudents" text="0" style="-fx-font-size: 24px; -fx-text-fill: #8e44ad;"/>
+                </VBox>
+
+                <VBox GridPane.columnIndex="1" GridPane.rowIndex="1" spacing="8.0" style="-fx-background-color: #ecf0f1; -fx-background-radius: 10; -fx-padding: 16;">
+                    <Label text="Tổng số môn học" style="-fx-font-weight: bold;"/>
+                    <Label fx:id="lblSubjects" text="0" style="-fx-font-size: 24px; -fx-text-fill: #d35400;"/>
+                </VBox>
+
+                <VBox GridPane.rowIndex="2" GridPane.columnSpan="2" spacing="8.0" style="-fx-background-color: #ecf0f1; -fx-background-radius: 10; -fx-padding: 16;">
+                    <Label text="Tổng số bảng điểm" style="-fx-font-weight: bold;"/>
+                    <Label fx:id="lblGrades" text="0" style="-fx-font-size: 24px; -fx-text-fill: #c0392b;"/>
+                </VBox>
+            </children>
+        </GridPane>
+
+        <VBox spacing="10.0" style="-fx-background-color: #f8f9fa; -fx-background-radius: 10; -fx-padding: 16;">
+            <Label text="TOP 5 SINH VIÊN GPA CAO NHẤT" style="-fx-font-weight: bold; -fx-font-size: 16px;"/>
+            <ListView fx:id="lvTopGpa" prefHeight="150.0"/>
+        </VBox>
+
+        <VBox spacing="10.0" style="-fx-background-color: #f8f9fa; -fx-background-radius: 10; -fx-padding: 16;">
+            <Label text="SỐ SINH VIÊN THEO LỚP" style="-fx-font-weight: bold; -fx-font-size: 16px;"/>
+            <ListView fx:id="lvStudentsByClass" prefHeight="150.0"/>
+        </VBox>
+
+        <VBox spacing="10.0" style="-fx-background-color: #f8f9fa; -fx-background-radius: 10; -fx-padding: 16;">
+            <Label text="SỐ SINH VIÊN THEO KHOA" style="-fx-font-weight: bold; -fx-font-size: 16px;"/>
+            <ListView fx:id="lvStudentsByDepartment" prefHeight="150.0"/>
+        </VBox>
+    </children>
+</VBox>

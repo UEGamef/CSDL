@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<VBox spacing="15.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="controller.AccountController">
+    <padding>
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+    </padding>
+
+    <children>
+        <Label text="QUẢN LÝ TÀI KHOẢN / PHÂN QUYỀN" textFill="#2c3e50">
+            <font>
+                <Font name="System Bold" size="22.0" />
+            </font>
+        </Label>
+
+        <GridPane hgap="12.0" vgap="10.0">
+            <columnConstraints>
+                <ColumnConstraints minWidth="140.0" />
+                <ColumnConstraints hgrow="ALWAYS" />
+                <ColumnConstraints minWidth="140.0" />
+                <ColumnConstraints hgrow="ALWAYS" />
+            </columnConstraints>
+
+            <children>
+                <Label text="Username:" GridPane.rowIndex="0" GridPane.columnIndex="0" />
+                <TextField fx:id="txtUsername" GridPane.rowIndex="0" GridPane.columnIndex="1" />
+
+                <Label text="Password:" GridPane.rowIndex="0" GridPane.columnIndex="2" />
+                <PasswordField fx:id="txtPassword" GridPane.rowIndex="0" GridPane.columnIndex="3" />
+
+                <Label text="Họ tên:" GridPane.rowIndex="1" GridPane.columnIndex="0" />
+                <TextField fx:id="txtFullName" GridPane.rowIndex="1" GridPane.columnIndex="1" />
+
+                <Label text="Vai trò:" GridPane.rowIndex="1" GridPane.columnIndex="2" />
+                <ComboBox fx:id="cbRole" GridPane.rowIndex="1" GridPane.columnIndex="3" />
+
+                <Label text="Trạng thái:" GridPane.rowIndex="2" GridPane.columnIndex="0" />
+                <CheckBox fx:id="chkActive" text="Đang hoạt động" GridPane.rowIndex="2" GridPane.columnIndex="1" />
+
+                <Label text="Mã SV:" GridPane.rowIndex="2" GridPane.columnIndex="2" />
+                <TextField fx:id="txtStudentId" GridPane.rowIndex="2" GridPane.columnIndex="3" />
+            </children>
+        </GridPane>
+
+        <HBox alignment="CENTER_RIGHT" spacing="10.0">
+            <Button text="Thêm mới" onAction="#handleAdd" />
+            <Button text="Cập nhật" onAction="#handleUpdate" />
+            <Button text="Xóa" onAction="#handleDelete" />
+            <Button text="Reset mật khẩu" onAction="#handleResetPassword" />
+        </HBox>
+
+        <TableView fx:id="tableAccounts" VBox.vgrow="ALWAYS">
+            <columns>
+                <TableColumn fx:id="colId" text="ID" prefWidth="70" />
+                <TableColumn fx:id="colUsername" text="Username" prefWidth="130" />
+                <TableColumn fx:id="colFullName" text="Họ tên" prefWidth="180" />
+                <TableColumn fx:id="colRole" text="Vai trò" prefWidth="120" />
+                <TableColumn fx:id="colActive" text="Trạng thái" prefWidth="100" />
+                <TableColumn fx:id="colStudentId" text="Mã SV" prefWidth="120" />
+            </columns>
+        </TableView>
+    </children>
+</VBox>

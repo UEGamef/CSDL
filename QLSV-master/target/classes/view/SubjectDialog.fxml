@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox spacing="10.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="controller.SubjectDialogController">
+    <padding>
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+    </padding>
+
+    <children>
+        <GridPane hgap="10.0" vgap="10.0">
+            <columnConstraints>
+                <ColumnConstraints minWidth="120" />
+                <ColumnConstraints hgrow="ALWAYS" />
+            </columnConstraints>
+
+            <children>
+                <Label text="Mã môn học:" GridPane.rowIndex="0" />
+                <TextField fx:id="txtMaMonHoc" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+
+                <Label text="Tên môn học:" GridPane.rowIndex="1" />
+                <TextField fx:id="txtTenMonHoc" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+
+                <Label text="Số tín chỉ:" GridPane.rowIndex="2" />
+                <TextField fx:id="txtSoTinChi" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+
+                <Label text="Trọng số chuyên cần:" GridPane.rowIndex="3" />
+                <TextField fx:id="txtTrongSoCC" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+
+                <Label text="Trọng số quá trình:" GridPane.rowIndex="4" />
+                <TextField fx:id="txtTrongSoQT" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+
+                <Label text="Trọng số cuối kỳ:" GridPane.rowIndex="5" />
+                <TextField fx:id="txtTrongSoCK" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            </children>
+        </GridPane>
+
+        <HBox alignment="CENTER_RIGHT" spacing="10.0">
+            <Button text="Lưu" onAction="#handleSave" />
+            <Button text="Hủy" onAction="#handleCancel" />
+        </HBox>
+    </children>
+</VBox>

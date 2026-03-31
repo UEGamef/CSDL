@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="controller.LoginController"
+            prefWidth="520.0"
+            prefHeight="360.0"
+            style="-fx-background-color: linear-gradient(to bottom right, #f4f7fb, #e9eef5);">
+
+    <children>
+        <VBox alignment="CENTER" spacing="18.0"
+              prefWidth="360.0"
+              AnchorPane.topAnchor="40.0"
+              AnchorPane.bottomAnchor="40.0"
+              AnchorPane.leftAnchor="80.0"
+              AnchorPane.rightAnchor="80.0"
+              style="-fx-background-color: white; -fx-background-radius: 16; -fx-border-radius: 16; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.12), 18, 0, 0, 4);">
+            <padding>
+                <Insets top="28.0" right="28.0" bottom="28.0" left="28.0"/>
+            </padding>
+
+            <children>
+                <VBox alignment="CENTER" spacing="4.0">
+                    <children>
+                        <Label text="SLinkV2" textFill="#1f2d3d">
+                            <font>
+                                <Font name="System Bold" size="28.0"/>
+                            </font>
+                        </Label>
+                        <Label text="Đăng nhập hệ thống quản lý sinh viên" textFill="#6b7280">
+                            <font>
+                                <Font size="13.0"/>
+                            </font>
+                        </Label>
+                    </children>
+                </VBox>
+
+                <Separator prefWidth="260.0" />
+
+                <GridPane hgap="12.0" vgap="14.0" maxWidth="300.0">
+                    <columnConstraints>
+                        <ColumnConstraints minWidth="95.0"/>
+                        <ColumnConstraints hgrow="ALWAYS"/>
+                    </columnConstraints>
+
+                    <children>
+                        <Label text="Username:" textFill="#374151" GridPane.rowIndex="0" GridPane.columnIndex="0">
+                            <font>
+                                <Font name="System Bold" size="13.0"/>
+                            </font>
+                        </Label>
+                        <TextField fx:id="txtUsername"
+                                   promptText="Nhập username"
+                                   prefHeight="34.0"
+                                   GridPane.rowIndex="0"
+                                   GridPane.columnIndex="1"/>
+
+                        <Label text="Password:" textFill="#374151" GridPane.rowIndex="1" GridPane.columnIndex="0">
+                            <font>
+                                <Font name="System Bold" size="13.0"/>
+                            </font>
+                        </Label>
+                        <PasswordField fx:id="txtPassword"
+                                       promptText="Nhập password"
+                                       prefHeight="34.0"
+                                       GridPane.rowIndex="1"
+                                       GridPane.columnIndex="1"/>
+                    </children>
+                </GridPane>
+
+                <HBox spacing="10.0" alignment="CENTER_RIGHT" maxWidth="300.0">
+                    <children>
+                        <Button text="Thoát"
+                                onAction="#handleExit"
+                                prefWidth="90.0"
+                                style="-fx-background-color: #e5e7eb; -fx-text-fill: #111827; -fx-font-weight: bold; -fx-background-radius: 8;"/>
+                        <Button text="Đăng nhập"
+                                onAction="#handleLogin"
+                                prefWidth="120.0"
+                                style="-fx-background-color: #2563eb; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 8;"/>
+                    </children>
+                </HBox>
+            </children>
+        </VBox>
+    </children>
+</AnchorPane>

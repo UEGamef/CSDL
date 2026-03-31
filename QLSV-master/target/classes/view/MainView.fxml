@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="controller.MainViewController"
+            prefWidth="1200.0"
+            prefHeight="720.0">
+
+    <children>
+        <VBox AnchorPane.topAnchor="0.0"
+              AnchorPane.bottomAnchor="0.0"
+              AnchorPane.leftAnchor="0.0"
+              AnchorPane.rightAnchor="0.0">
+
+            <children>
+                <HBox alignment="CENTER_LEFT"
+                      spacing="12.0"
+                      prefHeight="70.0"
+                      style="-fx-background-color: linear-gradient(to right, #2c3e50, #34495e);">
+                    <padding>
+                        <Insets top="14.0" right="20.0" bottom="14.0" left="20.0"/>
+                    </padding>
+
+                    <children>
+                        <VBox spacing="2.0">
+                            <children>
+                                <Label text="SLinkV2 - Hệ thống quản lý sinh viên" textFill="WHITE">
+                                    <font>
+                                        <Font name="System Bold" size="20.0"/>
+                                    </font>
+                                </Label>
+                                <Label text="Quản lý sinh viên, lớp, ngành, điểm và tài khoản" textFill="#dfe6e9">
+                                    <font>
+                                        <Font size="12.0"/>
+                                    </font>
+                                </Label>
+                            </children>
+                        </VBox>
+
+                        <Region HBox.hgrow="ALWAYS"/>
+
+                        <Label fx:id="lblCurrentUser" text="Đăng nhập: ---" textFill="WHITE">
+                            <font>
+                                <Font name="System Bold" size="13.0"/>
+                            </font>
+                        </Label>
+
+                        <Button fx:id="btnAccountManager"
+                                text="Tạo Tài Khoản / Phân Quyền"
+                                onAction="#handleOpenAccountWindow"
+                                style="-fx-background-color: #3498db; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 6;"/>
+
+                        <Button text="Đăng xuất"
+                                onAction="#handleLogout"
+                                style="-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 6;"/>
+                    </children>
+                </HBox>
+
+                <TabPane fx:id="tabPane"
+                         tabClosingPolicy="UNAVAILABLE"
+                         VBox.vgrow="ALWAYS"
+                         style="-fx-background-color: #ecf0f1;">
+                    <tabs>
+                        <Tab fx:id="tabDepartment" text="Quản lý Khoa">
+                            <content><fx:include source="DepartmentView.fxml" /></content>
+                        </Tab>
+
+                        <Tab fx:id="tabMajor" text="Ngành học">
+                            <content><fx:include source="MajorView.fxml" /></content>
+                        </Tab>
+
+                        <Tab fx:id="tabClass" text="Quản lý Lớp">
+                            <content><fx:include source="ClassView.fxml" /></content>
+                        </Tab>
+
+                        <Tab fx:id="tabStudent" text="Quản lý Sinh viên">
+                            <content><fx:include source="StudentView.fxml" /></content>
+                        </Tab>
+
+                        <Tab fx:id="tabLecturer" text="Giảng viên">
+                            <content><fx:include source="LecturerView.fxml" /></content>
+                        </Tab>
+
+                        <Tab fx:id="tabSubject" text="Quản lý Môn học">
+                            <content><fx:include source="SubjectView.fxml" /></content>
+                        </Tab>
+
+                        <Tab fx:id="tabGrade" text="Bảng điểm và Kết quả">
+                            <content><fx:include source="GradeView.fxml" /></content>
+                        </Tab>
+
+                        <Tab fx:id="tabStudentGradeLookup" text="Tra cứu điểm SV">
+                            <content><fx:include source="StudentGradeLookupView.fxml" /></content>
+                        </Tab>
+
+                        <Tab fx:id="tabStatistics" text="Thống kê">
+                            <content><fx:include source="StatisticsView.fxml" /></content>
+                        </Tab>
+                    </tabs>
+                </TabPane>
+            </children>
+        </VBox>
+    </children>
+</AnchorPane>
