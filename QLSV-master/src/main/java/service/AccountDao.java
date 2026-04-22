@@ -10,7 +10,8 @@ import java.sql.ResultSet;
 
 public class AccountDao {
 
-    public Account login(String username, String password) {
+    public Account login(String username, String password)
+    {
         String sql = """
                 SELECT account_id, username, password, full_name, role, active, student_id
                 FROM accounts

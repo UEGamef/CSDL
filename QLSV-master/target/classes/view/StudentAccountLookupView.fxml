@@ -5,47 +5,47 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
 
-<VBox spacing="15.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="controller.StudentAccountLookupController">
+<VBox spacing="16.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="controller.StudentGradeLookupController"
+      style="-fx-background-color: #f4f7fb;">
     <padding>
-        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+        <Insets top="18" right="18" bottom="18" left="18"/>
     </padding>
 
     <children>
-        <Label text="TRA CỨU TÀI KHOẢN SINH VIÊN" textFill="#2c3e50">
-            <font>
-                <Font name="System Bold" size="22.0" />
-            </font>
-        </Label>
+        <VBox spacing="4.0" style="-fx-background-color: white; -fx-background-radius: 14; -fx-padding: 18;">
+            <children>
+                <Label text="TRA CỨU ĐIỂM SINH VIÊN" textFill="#0f172a">
+                    <font><Font name="System Bold" size="24.0"/></font>
+                </Label>
+                <Label text="Nhập mã sinh viên để xem bảng điểm và GPA" textFill="#64748b" />
+            </children>
+        </VBox>
 
-        <HBox spacing="10.0" alignment="CENTER_LEFT">
+        <HBox spacing="10.0" alignment="CENTER_LEFT"
+              style="-fx-background-color: white; -fx-background-radius: 12; -fx-padding: 12;">
             <Label text="Mã SV:" />
             <TextField fx:id="txtMaSV" promptText="Nhập mã sinh viên..." HBox.hgrow="ALWAYS" />
-            <Button text="Tra cứu" onAction="#handleSearch" />
+            <Button fx:id="btnSearch" text="Tra cứu" onAction="#handleSearch"
+                    style="-fx-background-color: #2563eb; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 8;"/>
         </HBox>
 
-        <GridPane hgap="12.0" vgap="10.0">
-            <columnConstraints>
-                <ColumnConstraints minWidth="140.0" />
-                <ColumnConstraints hgrow="ALWAYS" />
-            </columnConstraints>
+        <HBox spacing="16.0" style="-fx-background-color: white; -fx-background-radius: 12; -fx-padding: 12;">
+            <Label fx:id="lblGPA" text="GPA Hệ 4: 0.00" style="-fx-font-weight: bold; -fx-text-fill: #2563eb;" />
+            <Label fx:id="lblRank" text="Xếp loại: ---" style="-fx-font-weight: bold; -fx-text-fill: #dc2626;" />
+        </HBox>
 
-            <children>
-                <Label text="Username:" GridPane.rowIndex="0" />
-                <Label fx:id="lblUsername" text="---" GridPane.columnIndex="1" GridPane.rowIndex="0" />
-
-                <Label text="Họ tên:" GridPane.rowIndex="1" />
-                <Label fx:id="lblFullName" text="---" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-
-                <Label text="Vai trò:" GridPane.rowIndex="2" />
-                <Label fx:id="lblRole" text="---" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-
-                <Label text="Trạng thái:" GridPane.rowIndex="3" />
-                <Label fx:id="lblActive" text="---" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-
-                <Label text="Mã SV liên kết:" GridPane.rowIndex="4" />
-                <Label fx:id="lblStudentId" text="---" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-            </children>
-        </GridPane>
+        <TableView fx:id="tableGrades" VBox.vgrow="ALWAYS"
+                   style="-fx-background-color: white; -fx-background-radius: 12;">
+            <columns>
+                <TableColumn fx:id="colSubject" text="Môn học" prefWidth="220" />
+                <TableColumn fx:id="colSemester" text="Học kỳ" prefWidth="120" />
+                <TableColumn fx:id="colFinal" text="Tổng kết" prefWidth="120" />
+                <TableColumn fx:id="colLetter" text="Chữ" prefWidth="90" />
+            </columns>
+            <columnResizePolicy>
+                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+            </columnResizePolicy>
+        </TableView>
     </children>
 </VBox>

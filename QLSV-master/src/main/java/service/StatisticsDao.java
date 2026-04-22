@@ -14,6 +14,10 @@ public class StatisticsDao {
         return count("SELECT COUNT(*) FROM departments");
     }
 
+    public int countMajors() {
+        return count("SELECT COUNT(*) FROM majors");
+    }
+
     public int countClasses() {
         return count("SELECT COUNT(*) FROM classes");
     }
@@ -22,12 +26,12 @@ public class StatisticsDao {
         return count("SELECT COUNT(*) FROM students");
     }
 
-    public int countSubjects() {
-        return count("SELECT COUNT(*) FROM subjects");
+    public int countLecturers() {
+        return count("SELECT COUNT(*) FROM lecturers");
     }
 
-    public int countGrades() {
-        return count("SELECT COUNT(*) FROM grades");
+    public int countSubjects() {
+        return count("SELECT COUNT(*) FROM subjects");
     }
 
     public ObservableList<Pair<String, Double>> getTop5Gpa() {

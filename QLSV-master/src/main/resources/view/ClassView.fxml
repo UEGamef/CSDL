@@ -5,28 +5,31 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
 
-<VBox spacing="15.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ClassController">
+<VBox spacing="16.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="controller.ClassController"
+      style="-fx-background-color: #f4f7fb;">
     <padding>
-        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+        <Insets top="18" right="18" bottom="18" left="18"/>
     </padding>
 
     <children>
-        <Label text="DANH SÁCH LỚP HỌC" textFill="#2c3e50">
-            <font>
-                <Font name="System Bold" size="22.0" />
-            </font>
-        </Label>
+        <VBox spacing="4.0" style="-fx-background-color: white; -fx-background-radius: 14; -fx-padding: 18;">
+            <children>
+                <Label text="DANH SÁCH LỚP HỌC" textFill="#0f172a">
+                    <font><Font name="System Bold" size="24.0"/></font>
+                </Label>
+                <Label text="Quản lý và tra cứu thông tin lớp học" textFill="#64748b" />
+            </children>
+        </VBox>
 
-        <HBox alignment="CENTER_LEFT" spacing="10.0" style="-fx-background-color: #ecf0f1; -fx-background-radius: 5px; -fx-padding: 10;">
-            <Label text="Tìm kiếm:">
-                <font>
-                    <Font name="System Bold" size="13.0" />
-                </font>
-            </Label>
+        <HBox alignment="CENTER_LEFT" spacing="10.0"
+              style="-fx-background-color: white; -fx-background-radius: 12; -fx-padding: 12;">
+            <Label text="Tìm kiếm:" />
             <TextField fx:id="txtSearch" promptText="Nhập mã lớp, tên lớp, ngành, khoa..." HBox.hgrow="ALWAYS" />
         </HBox>
 
-        <TableView fx:id="tableClasses" VBox.vgrow="ALWAYS">
+        <TableView fx:id="tableClasses" VBox.vgrow="ALWAYS"
+                   style="-fx-background-color: white; -fx-background-radius: 12;">
             <columns>
                 <TableColumn fx:id="colMaLop" text="Mã Lớp" prefWidth="100" />
                 <TableColumn fx:id="colTenLop" text="Tên Lớp" prefWidth="180" />
@@ -40,9 +43,12 @@
         </TableView>
 
         <HBox alignment="CENTER_RIGHT" spacing="10.0">
-            <Button text="Thêm Mới" onAction="#handleAddClass" style="-fx-base: #2ecc71; -fx-text-fill: white; -fx-font-weight: bold;" />
-            <Button text="Sửa" onAction="#handleEditClass" style="-fx-base: #f1c40f; -fx-font-weight: bold;" />
-            <Button text="Xóa" onAction="#handleDeleteClass" style="-fx-base: #e74c3c; -fx-text-fill: white; -fx-font-weight: bold;" />
+            <Button text="Thêm Mới" onAction="#handleAddClass"
+                    style="-fx-background-color: #10b981; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 8;"/>
+            <Button text="Sửa" onAction="#handleEditClass"
+                    style="-fx-background-color: #f59e0b; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 8;"/>
+            <Button text="Xóa" onAction="#handleDeleteClass"
+                    style="-fx-background-color: #ef4444; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 8;"/>
         </HBox>
     </children>
 </VBox>

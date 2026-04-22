@@ -5,40 +5,52 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
 
-<VBox spacing="15.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="controller.StudentGradeLookupController">
+<VBox spacing="16.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="controller.StudentGradeLookupController"
+      style="-fx-background-color: #f4f7fb;">
     <padding>
-        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+        <Insets top="18" right="18" bottom="18" left="18"/>
     </padding>
 
     <children>
-        <Label text="TRA CỨU ĐIỂM SINH VIÊN" textFill="#2c3e50">
-            <font>
-                <Font name="System Bold" size="22.0" />
-            </font>
-        </Label>
+        <VBox spacing="4.0" style="-fx-background-color: white; -fx-background-radius: 14; -fx-padding: 18;">
+            <children>
+                <Label text="TRA CỨU ĐIỂM SINH VIÊN" textFill="#0f172a">
+                    <font>
+                        <Font name="System Bold" size="24.0"/>
+                    </font>
+                </Label>
+                <Label text="Nhập mã sinh viên để xem bảng điểm và GPA" textFill="#64748b" />
+            </children>
+        </VBox>
 
-        <HBox spacing="10.0" alignment="CENTER_LEFT">
+        <HBox spacing="10.0" alignment="CENTER_LEFT"
+              style="-fx-background-color: white; -fx-background-radius: 12; -fx-padding: 12;">
             <Label text="Mã SV:" />
             <TextField fx:id="txtMaSV" promptText="Nhập mã sinh viên..." HBox.hgrow="ALWAYS" />
-            <Button fx:id="btnSearch" text="Tra cứu" onAction="#handleSearch" />
+            <Button fx:id="btnSearch" text="Tra cứu" onAction="#handleSearch"
+                    style="-fx-background-color: #2563eb; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 8;"/>
         </HBox>
 
-        <HBox spacing="20.0">
-            <Label fx:id="lblGPA" text="GPA Hệ 4: 0.00" />
-            <Label fx:id="lblRank" text="Xếp loại: ---" />
+        <HBox spacing="16.0" style="-fx-background-color: white; -fx-background-radius: 12; -fx-padding: 12;">
+            <Label fx:id="lblGPA" text="GPA Hệ 4: 0.00" style="-fx-font-weight: bold; -fx-text-fill: #2563eb;" />
+            <Label fx:id="lblRank" text="Xếp loại: ---" style="-fx-font-weight: bold; -fx-text-fill: #dc2626;" />
         </HBox>
 
-        <TableView fx:id="tableGrades" VBox.vgrow="ALWAYS">
+        <TableView fx:id="tableGrades" VBox.vgrow="ALWAYS"
+                   style="-fx-background-color: white; -fx-background-radius: 12;">
             <columns>
-                <TableColumn fx:id="colSubject" text="Môn học" prefWidth="180" />
-                <TableColumn fx:id="colSemester" text="Học kỳ" prefWidth="100" />
-                <TableColumn fx:id="colAttendance" text="Chuyên cần" prefWidth="100" />
-                <TableColumn fx:id="colProcess" text="Quá trình" prefWidth="100" />
-                <TableColumn fx:id="colExam" text="Cuối kỳ" prefWidth="100" />
-                <TableColumn fx:id="colFinal" text="Tổng kết" prefWidth="100" />
-                <TableColumn fx:id="colLetter" text="Chữ" prefWidth="80" />
+                <TableColumn fx:id="colSubject" text="Môn học" prefWidth="280" minWidth="180" />
+                <TableColumn fx:id="colSemester" text="Học kỳ" prefWidth="140" minWidth="120" />
+                <TableColumn fx:id="colAttendance" text="Chuyên cần" prefWidth="120" minWidth="100" />
+                <TableColumn fx:id="colProcess" text="Quá trình" prefWidth="120" minWidth="100" />
+                <TableColumn fx:id="colExam" text="Cuối kỳ" prefWidth="120" minWidth="100" />
+                <TableColumn fx:id="colFinal" text="Tổng kết" prefWidth="120" minWidth="100" />
+                <TableColumn fx:id="colLetter" text="Chữ" prefWidth="90" minWidth="80" />
             </columns>
+            <columnResizePolicy>
+                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY_ALL_COLUMNS" />
+            </columnResizePolicy>
         </TableView>
     </children>
 </VBox>

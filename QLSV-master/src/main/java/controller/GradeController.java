@@ -13,10 +13,11 @@ import service.DataService;
 import service.GradeDao;
 
 public class GradeController {
-    @FXML private ComboBox<Student> cbStudent;
+    @FXML private TextField txtMaSV;
+    @FXML private Label lblStudentInfo;
+    @FXML private Label lblGPA, lblRank;
     @FXML private TableView<Grade> tableGrades;
     @FXML private TableColumn<Grade, String> colSubject, colSemester, colAttendance, colProcess, colExam, colFinal, colLetter;
-    @FXML private Label lblGPA, lblRank;
 
     private final DataService dataService = DataService.getInstance();
     private final GradeDao gradeDao = new GradeDao();
@@ -24,7 +25,6 @@ public class GradeController {
     @FXML
     public void initialize() {
         dataService.getGrades().setAll(gradeDao.findAll());
-        cbStudent.setItems(dataService.getStudents());
 
         colSubject.setCellValueFactory(d -> {
             Subject s = dataService.findSubjectById(d.getValue().getMaMonHoc());
@@ -37,20 +37,55 @@ public class GradeController {
         colFinal.setCellValueFactory(d -> new SimpleStringProperty(String.format("%.1f", d.getValue().getDiemTongKet())));
         colLetter.setCellValueFactory(d -> new SimpleStringProperty(d.getValue().getDiemChu(d.getValue().getDiemTongKet())));
 
-        cbStudent.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> {
-            if (newVal != null) {
-                updateGradeTable(newVal.getMaSV());
-            } else {
-                tableGrades.getItems().clear();
-                lblGPA.setText("GPA Hệ 4: 0.00");
-                lblRank.setText("Xếp loại: ---");
-            }
-        });
+        tableGrades.setPlaceholder(new Label("Hãy nhập mã sinh viên để tra cứu"));
 
-        tableGrades.setItems(dataService.getGrades());
+        clearStudentView();
     }
 
-    private void updateGradeTable(String maSV) {
+    @FXML
+    private void handleSearch() {
+        String maSV = txtMaSV.getText() != null ? txtMaSV.getText().trim() : "";
+        if (maSV.isBlank()) {
+            showAlert("Vui lòng nhập Mã SV!");
+            return;
+        }
+
+        Student student = dataService.getStudents().stream()
+                .filter(s -> s.getMaSV() != null && s.getMaSV().equalsIgnoreCase(maSV))
+                .findFirst()
+                .orElse(null);
+
+        if (student == null) {
+            clearStudentView();
+            showAlert("Không tìm thấy sinh viên!");
+            return;
+        }
+
+        showStudentInfo(student);
+        loadGradesByStudentId(student.getMaSV());
+    }
+
+    private void showStudentInfo(Student student) {
+        String hoTen = (student.getHo() != null ? student.getHo() : "") +
+                " " +
+                (student.getTen() != null ? student.getTen() : "");
+
+        lblStudentInfo.setText(
+                "Mã SV: " + valueOrDash(student.getMaSV()) +
+                        " | Họ tên: " + hoTen.trim() +
+                        " | Lớp: " + valueOrDash(student.getMaLop())
+        );
+    }
+
+    private void clearStudentView() {
+        lblStudentInfo.setText("Chưa có sinh viên được tra cứu");
+        tableGrades.getItems().clear();
+        tableGrades.setPlaceholder(new Label("Hãy nhập mã sinh viên để tra cứu"));
+        lblGPA.setText("GPA Hệ 4: 0.00");
+        lblRank.setText("Xếp loại: ---");
+    }
+
+    private void loadGradesByStudentId(String maSV) {
         tableGrades.setItems(dataService.getGradesByStudent(maSV));
         calculateGPA(maSV);
     }
@@ -62,8 +97,7 @@ public class GradeController {
         for (Grade g : dataService.getGradesByStudent(maSV)) {
             Subject s = dataService.findSubjectById(g.getMaMonHoc());
             if (s != null) {
-                double diem10 = g.getDiemTongKet();
-                totalPoints += g.getDiemHe4(diem10) * s.getSoTinChi();
+                totalPoints += g.getDiemHe4(g.getDiemTongKet()) * s.getSoTinChi();
                 totalCredits += s.getSoTinChi();
             }
         }
@@ -79,9 +113,9 @@ public class GradeController {
 
     @FXML
     private void handleAddNewGrade() {
-        Student selectedStudent = cbStudent.getSelectionModel().getSelectedItem();
+        Student selectedStudent = getCurrentStudentFromSearch();
         if (selectedStudent == null) {
-            new Alert(Alert.AlertType.WARNING, "Vui lòng chọn sinh viên trước!").showAndWait();
+            new Alert(Alert.AlertType.WARNING, "Vui lòng tra cứu sinh viên trước!").showAndWait();
             return;
         }
 
@@ -91,7 +125,7 @@ public class GradeController {
         if (showGradeDialog(newGrade, false)) {
             if (gradeDao.insert(newGrade)) {
                 dataService.getGrades().add(newGrade);
-                updateGradeTable(selectedStudent.getMaSV());
+                loadGradesByStudentId(selectedStudent.getMaSV());
             } else {
                 new Alert(Alert.AlertType.WARNING, "Không thể thêm điểm!").showAndWait();
             }
@@ -109,9 +143,9 @@ public class GradeController {
         if (showGradeDialog(selected, true)) {
             if (gradeDao.update(selected)) {
                 tableGrades.refresh();
-                Student currentStudent = cbStudent.getValue();
+                Student currentStudent = getCurrentStudentFromSearch();
                 if (currentStudent != null) {
-                    updateGradeTable(currentStudent.getMaSV());
+                    loadGradesByStudentId(currentStudent.getMaSV());
                 }
             } else {
                 new Alert(Alert.AlertType.WARNING, "Không thể cập nhật điểm!").showAndWait();
@@ -136,15 +170,25 @@ public class GradeController {
             if (result == ButtonType.YES) {
                 if (gradeDao.deleteByKey(selected.getMaSV(), selected.getMaMonHoc(), selected.getHocKy())) {
                     dataService.getGrades().remove(selected);
-                    Student currentStudent = cbStudent.getValue();
+                    Student currentStudent = getCurrentStudentFromSearch();
                     if (currentStudent != null) {
-                        updateGradeTable(currentStudent.getMaSV());
+                        loadGradesByStudentId(currentStudent.getMaSV());
                     }
                 } else {
                     new Alert(Alert.AlertType.WARNING, "Không thể xóa điểm!").showAndWait();
                 }
             }
         });
+    }
+
+    private Student getCurrentStudentFromSearch() {
+        String maSV = txtMaSV.getText() != null ? txtMaSV.getText().trim() : "";
+        if (maSV.isBlank()) return null;
+
+        return dataService.getStudents().stream()
+                .filter(s -> s.getMaSV() != null && s.getMaSV().equalsIgnoreCase(maSV))
+                .findFirst()
+                .orElse(null);
     }
 
     private boolean showGradeDialog(Grade grade, boolean isEdit) {
@@ -164,5 +208,13 @@ public class GradeController {
             e.printStackTrace();
             return false;
         }
+    }
+
+    private String valueOrDash(String value) {
+        return value != null && !value.isBlank() ? value : "---";
+    }
+
+    private void showAlert(String message) {
+        new Alert(Alert.AlertType.WARNING, message).showAndWait();
     }
 }

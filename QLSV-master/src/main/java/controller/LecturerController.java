@@ -6,7 +6,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+import model.Department;
 import model.Lecturer;
+import model.Subject;
 import service.DataService;
 import service.LecturerDao;
 
@@ -27,8 +29,28 @@ public class LecturerController {
         colEmail.setCellValueFactory(d -> d.getValue().emailProperty());
         colHocVi.setCellValueFactory(d -> d.getValue().hocViProperty());
         colDiaChi.setCellValueFactory(d -> d.getValue().diaChiProperty());
-        colMaKhoa.setCellValueFactory(d -> d.getValue().maKhoaProperty());
-        colMaMonHoc.setCellValueFactory(d -> d.getValue().maMonHocProperty());
+
+        colMaKhoa.setCellValueFactory(d -> {
+            String maKhoa = d.getValue().getMaKhoa();
+            Department dep = DataService.getInstance().getDepartments().stream()
+                    .filter(x -> x.getMaKhoa() != null && x.getMaKhoa().equals(maKhoa))
+                    .findFirst()
+                    .orElse(null);
+            return new javafx.beans.property.SimpleStringProperty(
+                    dep != null ? dep.getTenKhoa() : ""
+            );
+        });
+
+        colMaMonHoc.setCellValueFactory(d -> {
+            String maMon = d.getValue().getMaMonHoc();
+            Subject subject = DataService.getInstance().getSubjects().stream()
+                    .filter(x -> x.getMaMonHoc() != null && x.getMaMonHoc().equals(maMon))
+                    .findFirst()
+                    .orElse(null);
+            return new javafx.beans.property.SimpleStringProperty(
+                    subject != null ? subject.getTenMonHoc() : ""
+            );
+        });
 
         DataService.getInstance().getLecturers().setAll(lecturerDao.findAll());
 
